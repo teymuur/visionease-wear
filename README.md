@@ -7,5 +7,5 @@ We will take regular pair of glasses for people with low vision or sunglasses fo
 ## About Us
 Even tho it would take a lot of effort to build a prototype of VisionEase Wear, we believe that it could be the winner of SABIS® STARS and help thousands of people  have a better future and easier lives. We are planning to make the code of this device open source so a lot of people can just download it and can make their own glasses by connecting a camera to a microcontroller. 
 
-# More than a SABIS STARS Sience fair project✨
+# More than a SABIS(R) STARS Science fair project✨
 Copyright Teymur Babayev (C) 2023-2024
