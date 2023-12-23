@@ -1,8 +1,6 @@
 import pyttsx3
 import cv2
 import sys
-
-
                                                
 text_speech = pyttsx3.init()
 def speak(answer):
@@ -27,24 +25,20 @@ if not cap.isOpened():
     raise IOError("cannot open")
 
 while True:
-    ret, frame = cap.read()
-    result = DeepFace.analyze(frame, actions=[ 'emotion' ])
 
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    result, video_frame = video_capture.read()  # read frames from the video
+    if result is False:
+        break  # terminate the loop if the frame is not read successfully
 
-    faces = faceCascade.detectMultiScale(gray, 1.1, 4) #dectecting face
+    faces = detect_bounding_box(
+        video_frame
+    )  # apply the function we created to the video frame
 
-    #for drawing rectangle on detected face
-    for(x, y, u, v) in faces:
-        cv2.rectangle(frame, (x, y), (x+u, y+v), (0,255,0), 2)
+    cv2.imshow(
+        "My Face Detection Project", video_frame
+    )  # display the processed frame in a window named "My Face Detection Project"
 
-    #for putting text on img
-    cv2.putText(frame, result['dominant_emotion'], (50, 50), font, 3, (0,0,255), 2, cv2.LINE_4)
-    
-    cv2.imshow('original video', frame)
-
-    #for closing cam press 'q'
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    if cv2.waitKey(1) & 0xFF == ord("q"):
         break
 
 
