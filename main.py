@@ -9,44 +9,52 @@ def speak(answer):
 
 #This is for opening web cam and detecting your face and emotion
 
+import threading
 import cv2
 from deepface import DeepFace
 
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
-faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
-font = cv2.FONT_HERSHEY_SIMPLEX
+counter = 0
 
-cap = cv2.VideoCapture(0)
+reference_img = cv2.imread("reference.jpg")  # use your own image here
 
-if not cap.isOpened():
-    cap = cv2.VideoCapture(1)
-if not cap.isOpened():
-    raise IOError("cannot open")
-def detect_bounding_box(vid):
-    gray_image = cv2.cvtColor(vid, cv2.COLOR_BGR2GRAY)
-    faces = faceCascade.detectMultiScale(gray_image, 1.1, 5, minSize=(40, 40))
-    for (x, y, w, h) in faces:
-        cv2.rectangle(vid, (x, y), (x + w, y + h), (0, 255, 0), 4)
-    return faces
+face_match = False
+
+
+def check_face(frame):
+    global face_match
+    try:
+        if DeepFace.verify(frame, reference_img.copy())['verified']:
+            face_match = True
+        else:
+            face_match = False
+    except ValueError:
+        face_match = False
+
 
 while True:
+    ret, frame = cap.read()
 
-    result, video_frame = cap.read()  # read frames from the video
-    if result is False:
-        break  # terminate the loop if the frame is not read successfully
+    if ret:
+        if counter % 30 == 0:
+            try:
+                threading.Thread(target=check_face, args=(frame.copy(),)).start()
+            except ValueError:
+                pass
+        counter += 1
+        if face_match:
+            cv2.putText(frame, "MATCH!", (20, 450), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 255, 0), 3)
+        else:
+            cv2.putText(frame, "NO MATCH!", (20, 450), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 3)
 
-    faces = detect_bounding_box(
-        video_frame
-    )  # apply the function we created to the video frame
+        cv2.imshow('video', frame)
 
-    cv2.imshow(
-        "My Face Detection Project", video_frame
-    )  # display the processed frame in a window named "My Face Detection Project"
-
-    if cv2.waitKey(1) & 0xFF == ord("q"):
+    key = cv2.waitKey(1)
+    if key == ord('q'):
         break
 
-
-cap.release()
 cv2.destroyAllWindows()
