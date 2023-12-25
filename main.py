@@ -18,13 +18,20 @@ def get_output_layers(net):
     return [layer_names[i[0] - 1] for i in enumerate(net.getLayerNames()) if i[0] - 1 in layer_names]
 
 
+announced_objects = {}
+
+# Modify the draw_prediction function
 def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
     label = str(classes[class_id])
     confidence_percentage = round(confidence * 100, 2)
     distance = round((2 * 3.14 * 180) / (w + h * 360.0), 2)
-    
-    print(f"Object: {label}, Confidence: {confidence_percentage}%, Distance: {distance} units")
-    speak(f"{label} is {distance} units away" )
+
+    key = (label, distance)  # Use a tuple as the key
+    if key not in announced_objects:
+        announced_objects[key] = True  # Mark the object as announced
+        print(f"Object: {label}, Confidence: {confidence_percentage}%, Distance: {distance} units")
+        speak(f"{label} is {distance} units away")
+
     color = COLORS[class_id]
     cv2.rectangle(img, (x, y), (x_plus_w, y_plus_h), color, 2)
     cv2.putText(img, label, (x - 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
@@ -43,7 +50,7 @@ np.random.seed(42)
 COLORS = np.random.uniform(0, 255, size=(len(classes), 3))
 
 # Open webcam
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 while True:
     # Read a frame from the webcam
@@ -91,10 +98,10 @@ while True:
             draw_prediction(frame, class_ids[i], confidences[i], x, y, x + w, y + h)
 
     # Display the frame
-    cv2.imshow("Object Detection", frame)
+    cv2.imshow("VisionEase Wear by Teymur and Sanam SABIS(R) STARS 2024", frame)
 
     # Break the loop when 'q' key is pressed
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    if  cv2.waitKey(1) == ord('q'):
         break
 
 # Release the webcam and close the window
