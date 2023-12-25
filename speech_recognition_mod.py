@@ -1,9 +1,13 @@
 import speech_recognition
 import pyttsx3
+
+# Text to speech
 text_speech = pyttsx3.init()
 def speak(answer):
     text_speech.say(answer)
     text_speech.runAndWait()
+
+# Speech recognition
 recognizer = speech_recognition.Recognizer()
 def listen():
     while True:
@@ -13,7 +17,8 @@ def listen():
                 audio = recognizer.listen(mic)
                 text = recognizer.recognize_google(audio)
                 text = text.lower()                                  
-                print(text)
+                return text
         except speech_recognition.UnknownValueError():
             recognizer = speech_recognition.Recognizer()
             continue
+print(listen())
