@@ -2,16 +2,16 @@ import pyttsx3
 import cv2
 import os,sys
 import numpy as np
-                                               
+import speech_recognition
+
 text_speech = pyttsx3.init()
+
 def speak(answer):
     text_speech.say(answer)
     text_speech.runAndWait()
 
 #This is for opening web cam and detecting your face and emotion
 
-import cv2
-import numpy as np
 
 def get_output_layers(net):
     layer_names = net.getUnconnectedOutLayersNames()
