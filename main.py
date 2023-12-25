@@ -1,16 +1,10 @@
 import pyttsx3
 import cv2
-import os,sys
+import threading
 import numpy as np
-import speech_recognition
+import speech_recognition_mod as sr
 
-text_speech = pyttsx3.init()
 
-def speak(answer):
-    text_speech.say(answer)
-    text_speech.runAndWait()
-
-#This is for opening web cam and detecting your face and emotion
 
 
 def get_output_layers(net):
@@ -30,7 +24,7 @@ def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
     if key not in announced_objects:
         announced_objects[key] = True  # Mark the object as announced
         print(f"Object: {label}, Confidence: {confidence_percentage}%, Distance: {distance} units")
-        speak(f"{label} is {distance} units away")
+        sr.speak(f"{label} is {distance} units away")
 
     color = COLORS[class_id]
     cv2.rectangle(img, (x, y), (x_plus_w, y_plus_h), color, 2)
