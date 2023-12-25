@@ -10,10 +10,13 @@ def speak(answer):
 
 #This is for opening web cam and detecting your face and emotion
 
+import cv2
+import numpy as np
 
 def get_output_layers(net):
     layer_names = net.getUnconnectedOutLayersNames()
-    return [net.getLayerNames()[i[0] - 1] for i in layer_names]
+    return [layer_names[i[0] - 1] for i in enumerate(net.getLayerNames()) if i[0] - 1 in layer_names]
+
 
 def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
     label = str(classes[class_id])
@@ -21,7 +24,7 @@ def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
     distance = round((2 * 3.14 * 180) / (w + h * 360.0), 2)
     
     print(f"Object: {label}, Confidence: {confidence_percentage}%, Distance: {distance} units")
-
+    speak(f"{label} is {distance} units away" )
     color = COLORS[class_id]
     cv2.rectangle(img, (x, y), (x_plus_w, y_plus_h), color, 2)
     cv2.putText(img, label, (x - 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
@@ -97,5 +100,3 @@ while True:
 # Release the webcam and close the window
 cap.release()
 cv2.destroyAllWindows()
-
-
