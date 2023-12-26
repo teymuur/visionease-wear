@@ -18,7 +18,8 @@ def listen():
                 text = recognizer.recognize_google(audio)
                 text = text.lower()                                  
                 return text
-        except speech_recognition.UnknownValueError():
+        except Exception as e:
             recognizer = speech_recognition.Recognizer()
             continue
-print(listen())
+while True:
+    print(listen())
