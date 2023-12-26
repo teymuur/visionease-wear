@@ -10,7 +10,7 @@ Certainly! Below is the documentation for the provided Python script that utiliz
 
 ## Requirements
 
-- Raspberry Pi (Tested on Raspberry Pi 3 Model B)
+- Raspberry Pi (Tested on Raspberry Pi 4 Model B)
 - Webcam
 - Python 3.7 or later
 - OpenCV
