@@ -6,7 +6,7 @@ text_speech = pyttsx3.init()
 def speak(answer):
     text_speech.say(answer)
     text_speech.runAndWait()
-
+text = None
 # Speech recognition
 recognizer = speech_recognition.Recognizer()
 def __listen__():
@@ -18,7 +18,7 @@ def __listen__():
                 text = recognizer.recognize_google(audio)
                 text = text.lower()   
                 print(text)                               
-                return text
+                
         except Exception :
             recognizer = speech_recognition.Recognizer()
             continue
