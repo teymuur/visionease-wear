@@ -1,5 +1,5 @@
 import cv2
-import threading
+import threading, time
 import numpy as np
 import speech_recognition_mod as sr
 
@@ -46,7 +46,7 @@ cap = cv2.VideoCapture(1)
 while True:
     # Read a frame from the webcam
     ret, frame = cap.read()
-
+    
     # Get the frame dimensions
     height, width, channels = frame.shape
 
