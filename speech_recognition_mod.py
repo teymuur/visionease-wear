@@ -9,7 +9,7 @@ def speak(answer):
 
 # Speech recognition
 recognizer = speech_recognition.Recognizer()
-def listen():
+def __listen__():
     while True:
         try:
             with speech_recognition.Microphone () as mic:
@@ -19,6 +19,9 @@ def listen():
                 text = text.lower()   
                 print(text)                               
                 return text
-        except Exception as e:
+        except Exception :
             recognizer = speech_recognition.Recognizer()
             continue
+def listen():
+    while True:
+        __listen__()

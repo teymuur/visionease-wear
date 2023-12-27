@@ -8,8 +8,7 @@ def get_output_layers(net):
     layer_names = net.getUnconnectedOutLayersNames()
     return [layer_names[i[0] - 1] for i in enumerate(net.getLayerNames()) if i[0] - 1 in layer_names]
 
-invoice = threading.Thread(target=sr.listen).start()
-print(invoice)
+
 announced_objects = {}
 
 # Modify the draw_prediction function
@@ -43,58 +42,70 @@ COLORS = np.random.uniform(0, 255, size=(len(classes), 3))
 
 # Open webcam
 cap = cv2.VideoCapture(1)
+def object_detection_mode():
+    while True:
+        # Read a frame from the webcam
+        ret, frame = cap.read()
+        
+        # Get the frame dimensions
+        height, width, channels = frame.shape
 
-while True:
-    # Read a frame from the webcam
-    ret, frame = cap.read()
-    
-    # Get the frame dimensions
-    height, width, channels = frame.shape
+        # Detecting objects
+        blob = cv2.dnn.blobFromImage(frame, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
+        net.setInput(blob)
+        outs = net.forward(output_layers)
 
-    # Detecting objects
-    blob = cv2.dnn.blobFromImage(frame, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
-    net.setInput(blob)
-    outs = net.forward(output_layers)
+        # Showing information on the screen
+        class_ids = []
+        confidences = []
+        boxes = []
+        for out in outs:
+            for detection in out:
+                scores = detection[5:]
+                class_id = np.argmax(scores)
+                confidence = scores[class_id]
+                if confidence > 0.5:
+                    # Object detected
+                    center_x = int(detection[0] * width)
+                    center_y = int(detection[1] * height)
+                    w = int(detection[2] * width)
+                    h = int(detection[3] * height)
 
-    # Showing information on the screen
-    class_ids = []
-    confidences = []
-    boxes = []
-    for out in outs:
-        for detection in out:
-            scores = detection[5:]
-            class_id = np.argmax(scores)
-            confidence = scores[class_id]
-            if confidence > 0.5:
-                # Object detected
-                center_x = int(detection[0] * width)
-                center_y = int(detection[1] * height)
-                w = int(detection[2] * width)
-                h = int(detection[3] * height)
+                    # Rectangle coordinates
+                    x = int(center_x - w / 2)
+                    y = int(center_y - h / 2)
 
-                # Rectangle coordinates
-                x = int(center_x - w / 2)
-                y = int(center_y - h / 2)
+                    class_ids.append(class_id)
+                    confidences.append(float(confidence))
+                    boxes.append([x, y, w, h])
 
-                class_ids.append(class_id)
-                confidences.append(float(confidence))
-                boxes.append([x, y, w, h])
+        # Apply non-max suppression to avoid duplicate detections
+        indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.4)
 
-    # Apply non-max suppression to avoid duplicate detections
-    indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.4)
+        # Display the results
+        for i in range(len(boxes)):
+            if i in indexes:
+                x, y, w, h = boxes[i]
+                draw_prediction(frame, class_ids[i], confidences[i], x, y, x + w, y + h)
 
-    # Display the results
-    for i in range(len(boxes)):
-        if i in indexes:
-            x, y, w, h = boxes[i]
-            draw_prediction(frame, class_ids[i], confidences[i], x, y, x + w, y + h)
+        # Display the frame
+        cv2.imshow("VisionEase Wear by Teymur and Sanam SABIS(R) STARS 2024", frame)
 
-    # Display the frame
-    cv2.imshow("VisionEase Wear by Teymur and Sanam SABIS(R) STARS 2024", frame)
+        # Break the loop when 'q' key is pressed
+        if  cv2.waitKey(1) == ord('q'):
+            break
 
-    # Break the loop when 'q' key is pressed
-    if  cv2.waitKey(1) == ord('q'):
-        break
+# Create two threads
+thread_1 = threading.Thread(target=object_detection_mode)
+thread_2 = threading.Thread(target=sr.listen)
+
+# Start the threads
+thread_1.start()
+thread_2.start()
+
+# Wait for both threads to finish (although they run indefinitely in this example)
+thread_1.join()
+thread_2.join()
 
 # Release the webcam and close the window
 cap.release()
