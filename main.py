@@ -1,5 +1,5 @@
 import cv2
-import threading, time
+import threading
 import numpy as np
 import speech_recognition_mod as sr
 
@@ -8,7 +8,7 @@ def get_output_layers(net):
     layer_names = net.getUnconnectedOutLayersNames()
     return [layer_names[i[0] - 1] for i in enumerate(net.getLayerNames()) if i[0] - 1 in layer_names]
 
-global w,h
+
 announced_objects = {}
 
 # Modify the draw_prediction function
@@ -43,6 +43,7 @@ COLORS = np.random.uniform(0, 255, size=(len(classes), 3))
 # Open webcam
 cap = cv2.VideoCapture(1)
 def object_detection_mode():
+    global w,h
     while True:
         # Read a frame from the webcam
         ret, frame = cap.read()
@@ -97,7 +98,7 @@ def object_detection_mode():
 
 # Create two threads
 thread_1 = threading.Thread(target=object_detection_mode)
-thread_2 = threading.Thread(target=sr.listen)
+thread_2 = threading.Thread(target=sr.listen,daemon=True)
 
 # Start the threads
 thread_1.start()
