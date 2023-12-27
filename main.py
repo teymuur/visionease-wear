@@ -8,7 +8,8 @@ def get_output_layers(net):
     layer_names = net.getUnconnectedOutLayersNames()
     return [layer_names[i[0] - 1] for i in enumerate(net.getLayerNames()) if i[0] - 1 in layer_names]
 
-
+invoice = threading.Thread(target=sr.listen).start()
+print(invoice)
 announced_objects = {}
 
 # Modify the draw_prediction function

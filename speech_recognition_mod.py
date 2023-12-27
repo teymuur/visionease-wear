@@ -16,7 +16,8 @@ def listen():
                 recognizer.adjust_for_ambient_noise(mic, duration=0.2)
                 audio = recognizer.listen(mic)
                 text = recognizer.recognize_google(audio)
-                text = text.lower()                                  
+                text = text.lower()   
+                print(text)                               
                 return text
         except Exception as e:
             recognizer = speech_recognition.Recognizer()
