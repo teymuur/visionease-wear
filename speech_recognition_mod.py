@@ -21,5 +21,3 @@ def listen():
         except Exception as e:
             recognizer = speech_recognition.Recognizer()
             continue
-while True:
-    print(listen())

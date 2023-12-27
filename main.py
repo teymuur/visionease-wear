@@ -1,10 +1,7 @@
-import pyttsx3
 import cv2
 import threading
 import numpy as np
 import speech_recognition_mod as sr
-
-
 
 
 def get_output_layers(net):
