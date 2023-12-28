@@ -19,8 +19,8 @@ def __listen__():
                 text = recognizer.recognize_google(audio)
                 text = text.lower()   
                 print(text)  
-                if "omega" in text:
-                    return 2
+                if "shut up habibi" in text:
+                    return -2
                 return text                             
 
         except Exception :
@@ -50,14 +50,16 @@ def getweather():
 def listen():
     while True:
         t  = __listen__()
-        if t ==2:
+        if t ==-2:
             break
         elif "for all my" in t and "know me" in t:
             speak("I feel like me and Taylor might still have sex")
             speak("Why .. I made that bitch famous... Goddamn")
         elif "w men's" in t:
             speak("Hell yeah brother")
+            continue
         elif "weather" in t: 
             getweather()
+            continue
 
-print(listen())
+# print(listen())

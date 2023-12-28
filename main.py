@@ -97,7 +97,7 @@ def object_detection_mode():
             break
 
 # Create two threads
-thread_1 = threading.Thread(target=object_detection_mode)
+thread_1 = threading.Thread(target=object_detection_mode,daemon=True)
 thread_2 = threading.Thread(target=sr.listen,daemon=True)
 
 # Start the threads
