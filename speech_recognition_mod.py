@@ -19,7 +19,7 @@ def __listen__():
                 text = recognizer.recognize_google(audio)
                 text = text.lower()   
                 print(text)  
-                if "shut up habibi" in text:
+                if "a n a l" in text:
                     return -2
                 return text                             
 
