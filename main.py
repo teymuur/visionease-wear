@@ -83,11 +83,11 @@ def object_detection_mode():
                     class_ids.append(class_id)
                     confidences.append(float(confidence))
                     boxes.append([x, y, w, h])
-        if len(boxes) > 0:
-                x, y, w, h = boxes[0]
-                region_of_interest = frame[y:y + h, x:x + w]
-                text_from_ocr = extract_text_from_image(region_of_interest)
-                print(f"OCR Result from Region of Interest: {text_from_ocr}")
+
+        text_from_ocr = extract_text_from_image(frame)
+        if text_from_ocr is not None:
+            print(f"OCR Result from Region of Interest: {text_from_ocr}")
+            sr.speak(f"Reading text: {text_from_ocr}")
         # Apply non-max suppression to avoid duplicate detections
         indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.4)
 
