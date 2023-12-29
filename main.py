@@ -15,6 +15,15 @@ pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tess
 def extract_text_from_image(image):
     # Use pytesseract to extract text from the image
     return pytesseract.image_to_string(image, config='--psm 6')
+
+
+def process_frame_with_ocr(frame):
+    # Perform OCR on the entire frame
+    text_from_ocr = extract_text_from_image(frame)
+
+    # Print or use the OCR result as needed
+    print(f"OCR Result from Entire Image: {text_from_ocr}")
+    sr.speak(f"Reading text: {text_from_ocr}")
 # Modify the draw_prediction function
 def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
     label = str(classes[class_id])
@@ -84,10 +93,8 @@ def object_detection_mode():
                     confidences.append(float(confidence))
                     boxes.append([x, y, w, h])
 
-        text_from_ocr = extract_text_from_image(frame)
-        if text_from_ocr is not None:
-            print(f"OCR Result from Region of Interest: {text_from_ocr}")
-            sr.speak(f"Reading text: {text_from_ocr}")
+
+
         # Apply non-max suppression to avoid duplicate detections
         indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.4)
 
@@ -99,14 +106,14 @@ def object_detection_mode():
 
         # Display the frame
         cv2.imshow("VisionEase Wear by Teymur and Sanam SABIS(R) STARS 2024", frame)
-
+        # process_frame_with_ocr(frame)
         # Break the loop when 'q' key is pressed
         if  cv2.waitKey(1) == ord('q'):
             break
 
 # Create two threads
-thread_1 = threading.Thread(target=object_detection_mode,daemon=True)
-thread_2 = threading.Thread(target=sr.listen,daemon=True)
+thread_1 = threading.Thread(target=object_detection_mode)
+thread_2 = threading.Thread(target=sr.listen)
 
 # Start the threads
 thread_1.start()
