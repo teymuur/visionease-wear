@@ -17,6 +17,7 @@ Certainly! Below is the documentation for the provided Python script that utiliz
 - NumPy
 - SpeechRecognition
 - pyttsx3
+- Tesseract
 
 ## Installation
 
@@ -40,6 +41,11 @@ Certainly! Below is the documentation for the provided Python script that utiliz
    pip install pyttsx3
    ```
 
+5. **Install tesseract:**
+   ```bash
+   pip install pytesseract
+   ```
+More info about installation [tessdoc](https://tesseract-ocr.github.io/tessdoc/Installation.html)
 ## Setup
 
 1. **Download YOLO Weights and Config File:**
@@ -84,8 +90,9 @@ VisionEase Wear provides a simple yet effective solution for real-time object de
 ## About Us
 Even tho it would take a lot of effort to build a prototype of VisionEase Wear, we believe that it could be the winner of SABIS® STARS and help thousands of people  have a better future and easier lives. We are planning to make the code of this device open source so a lot of people can just download it and can make their own glasses by connecting a camera to a microcontroller. 
 ## Resources used
-yelov3.weights[https://pjreddie.com/media/files/yolov3.weights]
-yelov3.cfg[https://pjreddie.com/media/files/yolov3.cfg]
-coco.names[https://github.com/pjreddie/darknet/blob/master/data/coco.names]
+[yelov3.weights](https://pjreddie.com/media/files/yolov3.weights)
+[yelov3.cfg](https://pjreddie.com/media/files/yolov3.cfg)
+[coco.names](https://github.com/pjreddie/darknet/blob/master/data/coco.names)
+[tesseract](https://github.com/tesseract-ocr/tesseract)
 # More than a SABIS(R) STARS Science fair project✨
 Copyright Teymur Babayev (C) 2023-2024
