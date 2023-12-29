@@ -34,7 +34,9 @@ Certainly! Below is the documentation for the provided Python script that utiliz
 3. **Install SpeechRecognition:**
    ```bash
    pip install SpeechRecognition
+   pip install pyaudio
    ```
+   If pyaudio module doesnt install properly make sure to install it manually via wheel as it is a very glitchy module.
 
 4. **Install pyttsx3:**
    ```bash
@@ -45,6 +47,8 @@ Certainly! Below is the documentation for the provided Python script that utiliz
    ```bash
    pip install pytesseract
    ```
+> [!IMPORTANT]
+> If you are on windows make sure install it properly via executable.
 More info about installation [tessdoc](https://tesseract-ocr.github.io/tessdoc/Installation.html)
 ## Setup
 
