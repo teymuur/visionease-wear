@@ -8,9 +8,13 @@ def get_output_layers(net):
     layer_names = net.getUnconnectedOutLayersNames()
     return [layer_names[i[0] - 1] for i in enumerate(net.getLayerNames()) if i[0] - 1 in layer_names]
 
-custom_config = r'--oem 3 --psm 6'
-announced_objects = {}
 
+announced_objects = {}
+pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+
+def extract_text_from_image(image):
+    # Use pytesseract to extract text from the image
+    return pytesseract.image_to_string(image, config='--psm 6')
 # Modify the draw_prediction function
 def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
     label = str(classes[class_id])
@@ -79,7 +83,11 @@ def object_detection_mode():
                     class_ids.append(class_id)
                     confidences.append(float(confidence))
                     boxes.append([x, y, w, h])
-
+        if len(boxes) > 0:
+                x, y, w, h = boxes[0]
+                region_of_interest = frame[y:y + h, x:x + w]
+                text_from_ocr = extract_text_from_image(region_of_interest)
+                print(f"OCR Result from Region of Interest: {text_from_ocr}")
         # Apply non-max suppression to avoid duplicate detections
         indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.4)
 
