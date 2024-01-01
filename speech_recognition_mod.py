@@ -44,9 +44,8 @@ def getweather():
     high = round(result.json()['main']['temp_max'])
     low = round(result.json()['main']['temp_min'])
 
-    speak(f"The weather in {location[0].upper()}{location[1:]} is {temperature}° C with {description}.")
-    speak(f"It feels like {feels_like}° C.")
-    speak(f"Today's high is {high}° C and today's low is {low}° C.")
+    speak(f"The weather in {location[0].upper()}{location[1:]} is {temperature}° C with {description}.It feels like {feels_like}° C. Today's high is {high}° C and today's low is {low}° C.")
+
 def listen():
     while True:
         t  = __listen__()
