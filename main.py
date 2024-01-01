@@ -18,7 +18,7 @@ def extract_text_from_image(image):
 
 
 def process_frame_with_ocr():
-    while True:
+    while extract_text_from_image(frame):
         text_from_ocr = extract_text_from_image(frame)
         # Print or use the OCR result as needed
         print(f"OCR Result from Entire Image: {text_from_ocr}")
