@@ -7,6 +7,8 @@ import logging
 
 logging.basicConfig(filename='debug.log', encoding='utf-8', level=logging.DEBUG)
 
+loop_flag = False
+
 def get_output_layers(net):
     layer_names = net.getUnconnectedOutLayersNames()
     return [layer_names[i[0] - 1] for i in enumerate(net.getLayerNames()) if i[0] - 1 in layer_names]
@@ -17,10 +19,13 @@ pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tessera
 
 def extract_text_from_image(image):
     # Use pytesseract to extract text from the image
-    return pytesseract.image_to_string(image, config='--psm 6')
+    global loop_flag
+    while loop_flag:
+        return pytesseract.image_to_string(image, config='--psm 6')
 
 
 def process_frame_with_ocr():
+    global frame
     logging.warning("working")
     text_from_ocr = extract_text_from_image(frame)
      # Print or use the OCR result as needed
@@ -59,8 +64,8 @@ COLORS = np.random.uniform(0, 255, size=(len(classes), 3))
 # Open webcam
 cap = cv2.VideoCapture(1)
 def object_detection_mode():
-    global w,h,frame
-    while True:
+    global w,h,frame,loop_flag
+    while loop_flag:
         # Read a frame from the webcam
         
         ret, frame = cap.read()
@@ -113,7 +118,7 @@ def object_detection_mode():
         # process_frame_with_ocr(frame)
         # Break the loop when 'q' key is pressed
         if  cv2.waitKey(1) == ord('q'):
-            break
+            loop_flag = False
 
 # Create two threads
 thread_1 = threading.Thread(target=object_detection_mode)

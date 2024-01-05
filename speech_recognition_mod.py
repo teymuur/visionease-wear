@@ -1,5 +1,4 @@
 ##This a libary running script is just for testing
-
 import speech_recognition
 import pyttsx3
 import requests
@@ -49,11 +48,13 @@ def getweather():
     speak(f"The weather in {location[0].upper()}{location[1:]} is {temperature}° C with {description}.It feels like {feels_like}° C. Today's high is {high}° C and today's low is {low}° C.")
 
 def listen():
-    while True:
+    global loop_flag
+    while loop_flag:
         t  = __listen__()
         if t ==-2:
             speak("I aint gonna shut up. Just Kidding, Bye")
-            break
+            loop_flag = False
+
         elif "for all my" in t and "know me" in t:
             speak("I feel like me and Taylor might still have sex")
             speak("Why .. I made that bitch famous... Goddamn")
@@ -68,4 +69,5 @@ def listen():
             speak("i love you too bro")
 
 if __name__ == "__main__":
+    loop_flag = True
     print(listen())
