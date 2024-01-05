@@ -3,6 +3,9 @@ import threading
 import numpy as np
 import speech_recognition_mod as sr
 import pytesseract
+import logging
+
+logging.basicConfig(filename='debug.log', encoding='utf-8', level=logging.DEBUG)
 
 def get_output_layers(net):
     layer_names = net.getUnconnectedOutLayersNames()
@@ -18,11 +21,12 @@ def extract_text_from_image(image):
 
 
 def process_frame_with_ocr():
-    while extract_text_from_image(frame):
-        text_from_ocr = extract_text_from_image(frame)
-        # Print or use the OCR result as needed
-        print(f"OCR Result from Entire Image: {text_from_ocr}")
-        sr.speak(f"Reading text: {text_from_ocr}")
+    logging.warning("working")
+    text_from_ocr = extract_text_from_image(frame)
+     # Print or use the OCR result as needed
+    print(f"OCR Result from Entire Image: {text_from_ocr}")
+    sr.speak(f"Reading text: {text_from_ocr}")
+
 # Modify the draw_prediction function
 def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
     label = str(classes[class_id])
