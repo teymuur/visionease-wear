@@ -13,7 +13,7 @@ def get_output_layers(net):
 
 
 announced_objects = {}
-pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 def extract_text_from_image(image):
     # Use pytesseract to extract text from the image
@@ -122,7 +122,7 @@ thread_3 = threading.Thread(target=process_frame_with_ocr)
 # Start the threads
 thread_1.start()
 thread_2.start()
-thread_3.start
+thread_3.start()
 # Wait for both threads to finish (although they run indefinitely in this example)
 thread_1.join()
 thread_2.join()
