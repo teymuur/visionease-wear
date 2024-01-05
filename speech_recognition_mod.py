@@ -1,3 +1,5 @@
+##This a libary running script is just for testing
+
 import speech_recognition
 import pyttsx3
 import requests
@@ -60,6 +62,6 @@ def listen():
         elif "weather" in t: 
             getweather()
             continue
-        
+
 if __name__ == "__main__":
     print(listen())
