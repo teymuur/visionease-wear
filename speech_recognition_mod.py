@@ -60,5 +60,6 @@ def listen():
         elif "weather" in t: 
             getweather()
             continue
-
-# print(listen())
+        
+if __name__ == "__main__":
+    print(listen())
