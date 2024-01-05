@@ -11,6 +11,7 @@ def speak(answer):
 text = None
 # Speech recognition
 recognizer = speech_recognition.Recognizer()
+loop_flag= True
 def __listen__():
     while True:
         try:
@@ -54,7 +55,6 @@ def listen():
         if t ==-2:
             speak("I aint gonna shut up. Just Kidding, Bye")
             loop_flag = False
-
         elif "for all my" in t and "know me" in t:
             speak("I feel like me and Taylor might still have sex")
             speak("Why .. I made that bitch famous... Goddamn")
@@ -67,6 +67,8 @@ def listen():
             continue
         elif "i love you" in t:
             speak("i love you too bro")
+        elif "fuck you" in t:
+            speak("Fuck you too T. you wanna start a robot fight huh?")
 
 if __name__ == "__main__":
     loop_flag = True

@@ -7,7 +7,7 @@ import logging
 
 logging.basicConfig(filename='debug.log', encoding='utf-8', level=logging.DEBUG)
 
-loop_flag = False
+sr.loop_flag = True
 
 def get_output_layers(net):
     layer_names = net.getUnconnectedOutLayersNames()
@@ -17,20 +17,6 @@ def get_output_layers(net):
 announced_objects = {}
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
-def extract_text_from_image(image):
-    # Use pytesseract to extract text from the image
-    global loop_flag
-    while loop_flag:
-        return pytesseract.image_to_string(image, config='--psm 6')
-
-
-def process_frame_with_ocr():
-    global frame
-    logging.warning("working")
-    text_from_ocr = extract_text_from_image(frame)
-     # Print or use the OCR result as needed
-    print(f"OCR Result from Entire Image: {text_from_ocr}")
-    sr.speak(f"Reading text: {text_from_ocr}")
 
 # Modify the draw_prediction function
 def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
@@ -64,10 +50,10 @@ COLORS = np.random.uniform(0, 255, size=(len(classes), 3))
 # Open webcam
 cap = cv2.VideoCapture(1)
 def object_detection_mode():
-    global w,h,frame,loop_flag
-    while loop_flag:
+    global w,h,frame,ret,channels
+    logging.info(sr.loop_flag)
+    while sr.loop_flag:
         # Read a frame from the webcam
-        
         ret, frame = cap.read()
         
         # Get the frame dimensions
@@ -118,17 +104,30 @@ def object_detection_mode():
         # process_frame_with_ocr(frame)
         # Break the loop when 'q' key is pressed
         if  cv2.waitKey(1) == ord('q'):
-            loop_flag = False
+            sr.loop_flag = False
 
-# Create two threads
+#Reading text from screen
+def process_frame_with_ocr():
+    global frame
+    logging.warning("working")
+    text_from_ocr = extract_text_from_image(frame)
+     # Print or use the OCR result as needed
+    print(f"OCR Result from Entire Image: {text_from_ocr}")
+    sr.speak(f"Reading text: {text_from_ocr}")
+
+def extract_text_from_image(image):
+    # Use pytesseract to extract text from the image
+    while sr.loop_flag:
+        return pytesseract.image_to_string(image, config='--psm 6')
+# Create 3 threads
 thread_1 = threading.Thread(target=object_detection_mode)
 thread_2 = threading.Thread(target=sr.listen)
 thread_3 = threading.Thread(target=process_frame_with_ocr)
-# Start the threads
+# Start 3 threads
 thread_1.start()
 thread_2.start()
 thread_3.start()
-# Wait for both threads to finish (although they run indefinitely in this example)
+# Wait for all threads to finish 
 thread_1.join()
 thread_2.join()
 thread_3.join()
