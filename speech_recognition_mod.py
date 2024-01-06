@@ -1,13 +1,23 @@
 ##This a libary running script is just for testing
 import speech_recognition
 import pyttsx3
+
+import threading
 import requests
 # Text to speech
+
 text_speech = pyttsx3.init()
 text_speech.setProperty("rate",180)
+speak_lock = threading.Lock()
+
+#Text to speech
 def speak(answer):
-    text_speech.say(answer)
-    text_speech.runAndWait()
+    with speak_lock:
+        text_speech.say(answer)
+        try:
+            text_speech.runAndWait()
+        except Exception as e:
+            print(f"Error in speak function: {e}")
 text = None
 # Speech recognition
 recognizer = speech_recognition.Recognizer()

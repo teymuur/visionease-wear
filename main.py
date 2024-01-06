@@ -1,8 +1,9 @@
 import cv2
-import threading
 import numpy as np
 import speech_recognition_mod as sr
 import pytesseract
+
+import threading
 import logging
 import time
 
@@ -108,6 +109,11 @@ def object_detection_mode():
             sr.loop_flag = False
 
 #Reading text from screen
+            
+def extract_text_from_image(image):
+    # Use pytesseract to extract text from the image
+    while sr.loop_flag:
+        return pytesseract.image_to_string(image, config='--psm 6')
 def process_frame_with_ocr():
     global frame
     logging.warning("working")
@@ -116,22 +122,19 @@ def process_frame_with_ocr():
     print(f"OCR Result from Entire Image: {text_from_ocr}")
     sr.speak(f"Reading text: {text_from_ocr}")
 
-def extract_text_from_image(image):
-    # Use pytesseract to extract text from the image
-    while sr.loop_flag:
-        return pytesseract.image_to_string(image, config='--psm 6')
 # Create 3 threads
 thread_1 = threading.Thread(target=object_detection_mode)
 thread_2 = threading.Thread(target=sr.listen)
-time.sleep(1)
 thread_3 = threading.Thread(target=process_frame_with_ocr)
 # Start 3 threads
 thread_1.start()
 thread_2.start()
+time.sleep(1)
 thread_3.start()
 # Wait for all threads to finish 
 thread_1.join()
 thread_2.join()
+time.sleep(1)
 thread_3.join()
 # Release the webcam and close the window
 cap.release()
