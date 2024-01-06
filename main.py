@@ -4,6 +4,7 @@ import numpy as np
 import speech_recognition_mod as sr
 import pytesseract
 import logging
+import time
 
 logging.basicConfig(filename='debug.log', encoding='utf-8', level=logging.DEBUG)
 
@@ -122,6 +123,7 @@ def extract_text_from_image(image):
 # Create 3 threads
 thread_1 = threading.Thread(target=object_detection_mode)
 thread_2 = threading.Thread(target=sr.listen)
+time.sleep(1)
 thread_3 = threading.Thread(target=process_frame_with_ocr)
 # Start 3 threads
 thread_1.start()

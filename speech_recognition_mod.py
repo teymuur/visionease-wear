@@ -30,7 +30,7 @@ def __listen__():
             continue
 def getweather():
     api_key = open('weather_api_key.txt', 'r').read()
-    while True:
+    while loop_flag:
         
         location = "Baku"
 
@@ -71,5 +71,4 @@ def listen():
             speak("Fuck you too T. you wanna start a robot fight huh?")
 
 if __name__ == "__main__":
-    loop_flag = True
     print(listen())
