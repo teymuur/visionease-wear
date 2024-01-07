@@ -2,21 +2,23 @@
 import speech_recognition
 import pyttsx3
 
-import threading
 import requests
 
 # Text to speech
 text_speech = pyttsx3.init()
 text_speech.setProperty("rate",180)
-speak_lock = threading.Lock()
+
 
 def speak(answer):
-    with speak_lock:
-        text_speech.say(answer)
-        try:
-            text_speech.runAndWait()
-        except Exception as e:
-            print(f"Error in speak function: {e}")
+    text_speech.say(answer)
+    try:
+        text_speech.runAndWait()
+    except Exception as e:
+        print(f"Error in speak function: {e}")
+    finally:
+        # Stop the speech loop
+        text_speech.stop()
+
 text = None
 # Speech recognition
 recognizer = speech_recognition.Recognizer()
@@ -78,6 +80,14 @@ def listen():
             speak("i love you too bro")
         elif "fuck you" in t:
             speak("Fuck you too T. you wanna start a robot fight huh?")
+        elif "kill myself" in t:
+            speak('''Hey Bro,
+
+I've noticed you might be going through a tough time, and I want you to know I'm here for you. Your feelings are valid, and it's okay to ask for help. If you're comfortable, I'm here to listen. Remember, seeking support is a sign of strength, not weakness. Reach out to someone you trust or consider talking to a professional. You're not alone, and I care about you.
+
+Take care,''') 
+        elif "thank you T":
+            speak("No problem")
 
 if __name__ == "__main__":
     print(listen())
