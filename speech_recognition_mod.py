@@ -4,13 +4,12 @@ import pyttsx3
 
 import threading
 import requests
-# Text to speech
 
+# Text to speech
 text_speech = pyttsx3.init()
 text_speech.setProperty("rate",180)
 speak_lock = threading.Lock()
 
-#Text to speech
 def speak(answer):
     with speak_lock:
         text_speech.say(answer)

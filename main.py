@@ -5,7 +5,7 @@ import pytesseract
 
 import threading
 import logging
-import time
+
 
 logging.basicConfig(filename='debug.log', encoding='utf-8', level=logging.DEBUG)
 
@@ -129,12 +129,10 @@ thread_3 = threading.Thread(target=process_frame_with_ocr)
 # Start 3 threads
 thread_1.start()
 thread_2.start()
-time.sleep(1)
 thread_3.start()
 # Wait for all threads to finish 
 thread_1.join()
 thread_2.join()
-time.sleep(1)
 thread_3.join()
 # Release the webcam and close the window
 cap.release()
