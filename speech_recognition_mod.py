@@ -15,9 +15,7 @@ def speak(answer):
         text_speech.runAndWait()
     except Exception as e:
         print(f"Error in speak function: {e}")
-    finally:
-        # Stop the speech loop
-        text_speech.stop()
+
 
 text = None
 # Speech recognition
