@@ -16,7 +16,6 @@ def speak(answer):
     except Exception as e:
         print(f"Error in speak function: {e}")
 
-
 text = None
 # Speech recognition
 recognizer = speech_recognition.Recognizer()
