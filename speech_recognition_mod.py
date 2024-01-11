@@ -63,28 +63,29 @@ def listen():
         if t ==-2:
             speak("I aint gonna shut up. Just Kidding, Bye")
             loop_flag = False
-        elif "for all my" in t and "know me" in t:
-            speak("I feel like me and Taylor might still have sex")
-            speak("Why .. I made that bitch famous... Goddamn")
-            speak("For all the girls that got dick from Kanye West.. they just mad they aint famous.. Goddamn")
-        elif "w men's" in t:
-            speak("Hell yeah brother")
-            continue
-        elif "weather" in t: 
-            getweather()
-            continue
-        elif "i love you" in t:
-            speak("i love you too bro")
-        elif "fuck you" in t:
-            speak("Fuck you too T. you wanna start a robot fight huh?")
-        elif "kill myself" in t:
-            speak('''Hey Bro,
+        elif "zenith"in t :
+            if "for all my" in t and "know me" in t:
+                speak("I feel like me and Taylor might still have sex")
+                speak("Why .. I made that bitch famous... Goddamn")
+                speak("For all the girls that got dick from Kanye West.. they just mad they aint famous.. Goddamn")
+            elif "w men's" in t:
+                speak("Hell yeah brother")
+                continue
+            elif "weather" in t: 
+                getweather()
+                continue
+            elif "i love you" in t:
+                speak("i love you too bro")
+            elif "fuck you" in t:
+                speak("Fuck you too T. you wanna start a robot fight huh?")
+            elif "kill myself" in t:
+                speak('''Hey Bro,
 
-I've noticed you might be going through a tough time, and I want you to know I'm here for you. Your feelings are valid, and it's okay to ask for help. If you're comfortable, I'm here to listen. Remember, seeking support is a sign of strength, not weakness. Reach out to someone you trust or consider talking to a professional. You're not alone, and I care about you.
+    I've noticed you might be going through a tough time, and I want you to know I'm here for you. Your feelings are valid, and it's okay to ask for help. If you're comfortable, I'm here to listen. Remember, seeking support is a sign of strength, not weakness. Reach out to someone you trust or consider talking to a professional. You're not alone, and I care about you.
 
-Take care,''') 
-        elif "thank you T":
-            speak("No problem")
+    Take care,''') 
+            elif "thank you T" in t:
+                speak("No problem")
 
 if __name__ == "__main__":
     print(listen())
