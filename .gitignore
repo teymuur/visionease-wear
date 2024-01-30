@@ -1,5 +1,6 @@
-./yelov3.weights
+src/yelov3.weights
 yolov3.weights
 *.pyc
-weather_api_key.txt
+src/weather_api_key.txt
 *.log
+*.txt
