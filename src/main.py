@@ -37,9 +37,9 @@ def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
     cv2.putText(img, label, (x - 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
 # Load YOLO
-net = cv2.dnn.readNet("yolov3.weights", "yolov3.cfg")
+net = cv2.dnn.readNet("model/yolov3.weights", "model/yolov3.cfg")
 classes = []
-with open("coco.names", "r") as f:
+with open("model/coco.names", "r") as f:
     classes = [line.strip() for line in f.readlines()]
 
 layer_names = net.getLayerNames()
