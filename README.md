@@ -99,15 +99,19 @@ VisionEase Wear provides a simple yet effective solution for real-time object de
 ## About Us
 Even tho it would take a lot of effort to build a prototype of VisionEase Wear, we believe that it could be the winner of SABIS® STARS and help thousands of people  have a better future and easier lives. We are planning to make the code of this device open source so a lot of people can just download it and can make their own glasses by connecting a camera to a microcontroller. 
 ## Resources used
-[yelov3.weights](https://pjreddie.com/media/files/yolov3.weights)
-[yelov3.cfg](https://pjreddie.com/media/files/yolov3.cfg)
-[coco.names](https://github.com/pjreddie/darknet/blob/master/data/coco.names)
-[tesseract](https://github.com/tesseract-ocr/tesseract)
+- [yelov3.weights](https://pjreddie.com/media/files/yolov3.weights)
+- [yelov3.cfg](https://pjreddie.com/media/files/yolov3.cfg)
+- [coco.names](https://github.com/pjreddie/darknet/blob/master/data/coco.names)
+- [tesseract](https://github.com/tesseract-ocr/tesseract)
 # More than a SABIS(R) STARS Science fair project✨
 
 Copyright Teymur Babayev (C) 2023-2024
+
 [BSD 3 clause license](LICENSE)
 
+
 [my website](https://teymuur.github.io)
+
 [my other work](https://github.com/teymuur)
+
 [instagram](https://instagram.com/teyymuurr)
