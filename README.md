@@ -67,7 +67,7 @@ More info about installation [tessdoc](https://tesseract-ocr.github.io/tessdoc/I
    - Connect the webcam to the Raspberry Pi.
 
 4. **Run the Script:**
-   - Place the script files (`main.py` and `speech_recognition_mod.py`) in the same directory as the YOLO files.
+   - Place the script files (`main.py`, `speech_recognition_mod.py` and `qr_detection.py`) in the same directory as the YOLO files.
    - Run the script using the following command:
      ```bash
      python main.py
@@ -104,4 +104,10 @@ Even tho it would take a lot of effort to build a prototype of VisionEase Wear, 
 [coco.names](https://github.com/pjreddie/darknet/blob/master/data/coco.names)
 [tesseract](https://github.com/tesseract-ocr/tesseract)
 # More than a SABIS(R) STARS Science fair project✨
+
 Copyright Teymur Babayev (C) 2023-2024
+[BSD 3 clause license](LICENSE)
+
+[my website](https://teymuur.github.io)
+[my other work](https://github.com/teymuur)
+[instagram](https://instagram.com/teyymuurr)
