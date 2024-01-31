@@ -1,11 +1,12 @@
 import cv2
 import numpy as np
 import speech_recognition_mod as sr
+import qr_detection as qr
 import pytesseract
 
 import threading
 import logging
-import time
+
 
 logging.basicConfig(filename='debug.log', encoding='utf-8', level=logging.DEBUG)
 
@@ -37,9 +38,9 @@ def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
     cv2.putText(img, label, (x - 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
 # Load YOLO
-net = cv2.dnn.readNet("model/yolov3.weights", "model/yolov3.cfg")
+net = cv2.dnn.readNet("src/model/yolov3.weights", "src/model/yolov3.cfg")
 classes = []
-with open("model/coco.names", "r") as f:
+with open("src/model/coco.names", "r") as f:
     classes = [line.strip() for line in f.readlines()]
 
 layer_names = net.getLayerNames()
