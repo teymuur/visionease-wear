@@ -74,6 +74,9 @@ def listen():
             elif "weather" in t: 
                 getweather()
                 continue
+            elif "help":
+                speak("There a mulptiple stuff i can help you with please be more specific")
+                
             elif "i love you" in t:
                 speak("i love you too bro")
             elif "fuck you" in t:
