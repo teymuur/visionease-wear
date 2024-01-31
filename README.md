@@ -18,6 +18,7 @@ Certainly! Below is the documentation for the provided Python script that utiliz
 - SpeechRecognition
 - pyttsx3
 - Tesseract
+- Pyzbar
 
 ## Installation
 
@@ -50,6 +51,10 @@ Certainly! Below is the documentation for the provided Python script that utiliz
 > [!IMPORTANT]
 > If you are on windows make sure install it properly via executable.
 More info about installation [tessdoc](https://tesseract-ocr.github.io/tessdoc/Installation.html)
+6. **Install pyzbar**
+   ```bash
+   pip install pyzbar
+   ```
 ## Setup
 
 1. **Download YOLO Weights and Config File:**
