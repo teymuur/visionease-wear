@@ -138,6 +138,9 @@ def process_frame_with_ocr():
 # time.sleep(0.25)
 # thread_3.join()
 # # Release the webcam and close the window
-object_detection_mode()
-cap.release()
-cv2.destroyAllWindows()
+
+if __name__ == "__main__":
+    object_detection_mode()
+    sr.listen()
+    cap.release()
+    cv2.destroyAllWindows()
