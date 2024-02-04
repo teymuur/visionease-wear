@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import speech_recognition_mod as sr
 import qr_detection as qr
+import text_detection
 import threading
 import logging
 
