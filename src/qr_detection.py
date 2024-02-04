@@ -21,11 +21,11 @@ while True:
         cv2.polylines(img,[pts],True,(255,0,255),5)
         pts2 = barcode.rect
         cv2.putText(img,myData,(pts2[0],pts2[1]),cv2.FONT_HERSHEY_SIMPLEX, 0.9,(255,0,255),2)
-        print(f"QR Code Decoded: {myData}")
+        
 
         if myData not in scanned_qr_codes or (time.time() - scanned_qr_codes[myData]) > 300:
 
-            sr.speak(myData)
+            sr.speak(f"QR Code Decoded: {myData}")
             print(f"QR Code Decoded: {myData}")
 
             # Update the scanned QR codes list with the current time

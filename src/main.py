@@ -2,8 +2,6 @@ import cv2
 import numpy as np
 import speech_recognition_mod as sr
 import qr_detection as qr
-import pytesseract
-
 import threading
 import logging
 
@@ -18,7 +16,6 @@ def get_output_layers(net):
 
 
 announced_objects = {}
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 
 # Modify the draw_prediction function
@@ -108,20 +105,6 @@ def object_detection_mode():
         # Break the loop when 'q' key is pressed
         if  cv2.waitKey(1) == ord('q'):
             sr.loop_flag = False
-
-#Reading text from screen
-            
-def extract_text_from_image(image):
-    # Use pytesseract to extract text from the image
-    while sr.loop_flag:
-        return pytesseract.image_to_string(image, config='--psm 1')
-def process_frame_with_ocr():
-    global frame
-    logging.warning("working")
-    text_from_ocr = extract_text_from_image(frame)
-     # Print or use the OCR result as needed
-    print(f"OCR Result from Entire Image: {text_from_ocr}")
-    sr.speak(f"Reading text: {text_from_ocr}")
 
 # # Create 3 threads
 # thread_1 = threading.Thread(target=object_detection_mode)
