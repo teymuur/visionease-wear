@@ -1,8 +1,11 @@
-import cv2
+##Qr detection model
 from pyzbar.pyzbar import decode
+import cv2
+
 import numpy as np
-import speech_recognition_mod as sr
 import time
+
+import speech_recognition_mod as sr
 
 cap = cv2.VideoCapture(1)
 cap.set(3,640)

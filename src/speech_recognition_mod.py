@@ -1,4 +1,4 @@
-##This a libary running script is just for testing
+##Speech recognition model
 import speech_recognition
 import pyttsx3
 

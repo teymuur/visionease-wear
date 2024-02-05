@@ -1,7 +1,8 @@
+##Text detection module
 import pytesseract
-import speech_recognition_mod as sr
 import cv2
 
+import speech_recognition_mod as sr
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 previous_text = set()
