@@ -4,6 +4,7 @@ import cv2
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
+previous_text = set()
 
 def process_frame(frame):
     # Convert the frame to grayscale for better OCR accuracy
@@ -13,8 +14,7 @@ def process_frame(frame):
     _, thresholded = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
     # Use Tesseract OCR to extract text from the thresholded image
-    text = pytesseract.image_to_string(thresholded)
-
+    text = pytesseract.image_to_string(thresholded,config='--psm 6')
     return text
 
 def main():
@@ -30,12 +30,17 @@ def main():
             break
 
         # Process the frame to extract text
-        extracted_text = process_frame(frame)
+        text = process_frame(frame)
 
         # Display the original frame and the extracted text
         cv2.imshow('Original Frame', frame)
-        print('Extracted Text:', extracted_text)
-        sr.speak(extracted_text)
+        if text.strip() not in previous_text:
+        # Print the extracted text
+    
+            sr.speak(f"Reading text:{text}")
+        # Add the detected text to the set of previous text
+            previous_text.add(text.strip())
+
         # Break the loop if 'q' is pressed
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
