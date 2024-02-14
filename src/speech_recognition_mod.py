@@ -63,12 +63,9 @@ def listen():
         if t ==-2:
             speak("I aint gonna shut up. Just Kidding, Bye")
             loop_flag = False
+            break
         elif "zenith"in t :
-            if "for all my" in t and "know me" in t:
-                speak("I feel like me and Taylor might still have sex")
-                speak("Why .. I made that bitch famous... Goddamn")
-                speak("For all the girls that got dick from Kanye West.. they just mad they aint famous.. Goddamn")
-            elif "w men's" in t:
+            if "w men's" in t:
                 speak("Hell yeah brother")
                 continue
             elif "weather" in t: 
