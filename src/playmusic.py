@@ -14,8 +14,10 @@ if os.path.exists("spotify_client"):
 if os.path.exists("spotify_secret"):
     with open("spotify_secret", "r") as f:
         client_secret = f.readline().strip()
-        
+os.environ['SPOTIPY_CLIENT_ID'] = client_id
+os.environ['SPOTIPY_CLIENT_SECRET'] = client_secret
 sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
+print(client_id, client_secret)
 
 # Initialize pygame
 pygame.mixer.init()
