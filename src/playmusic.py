@@ -1,14 +1,20 @@
 import speech_recognition_mod
-import os
 import spotipy
+import os
 from spotipy.oauth2 import SpotifyClientCredentials
 import pygame
 import requests
 
 # Initialize Spotipy client
 
-client_id = os.getenv('SPOTIPY_CLIENT_ID')
-client_secret = os.getenv('SPOTIPY_CLIENT_SECRET')
+if os.path.exists("spotify_client"):
+    with open("spotify_client", "r") as f:
+        client_id = f.readline().strip()
+
+if os.path.exists("spotify_secret"):
+    with open("spotify_secret", "r") as f:
+        client_secret = f.readline().strip()
+        
 sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
 
 # Initialize pygame
