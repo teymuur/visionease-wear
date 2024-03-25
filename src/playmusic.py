@@ -6,10 +6,9 @@ import pygame
 import requests
 
 # Initialize Spotipy client
-client_id = 'YOUR_CLIENT_ID'
-client_secret = 'YOUR_CLIENT_SECRET'
-os.environ['SPOTIPY_CLIENT_ID'] = client_id
-os.environ['SPOTIPY_CLIENT_SECRET'] = client_secret
+
+client_id = os.environ['SPOTIPY_CLIENT_ID'] 
+client_secret = os.environ['SPOTIPY_CLIENT_SECRET']
 sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
 
 # Initialize pygame
