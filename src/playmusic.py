@@ -1,4 +1,4 @@
-import speech_recognition_mod
+import speech_recognition_mod as sr
 import os
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
@@ -26,7 +26,7 @@ def search_and_play_song(song_name):
         artist_name = track['artists'][0]['name']
         preview_url = track['preview_url']
 
-        print(f"Playing: {track_name} by {artist_name}")
+        sr.speak(f"Playing: {track_name} by {artist_name}")
 
         # Download and play the audio
         if preview_url:
@@ -40,10 +40,10 @@ def search_and_play_song(song_name):
                 continue
             os.remove('temp_preview.mp3')
         else:
-            print("No preview available for the song.")
+            sr.speak("No preview available for the song.")
     else:
-        print("Song not found.")
+        sr.speak("Song not found.")
 
 if __name__ == "__main__":
-    song_name = input("Enter the name of the song: ")
+    song_name = sr.__listen__()
     search_and_play_song(song_name)

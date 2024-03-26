@@ -4,5 +4,5 @@ yolov3.weights
 src/weather_api_key.txt
 *.log
 *.txt
-src/spotify_client
-src/spotify_secret
+temp_preview.mp3
+.cache
