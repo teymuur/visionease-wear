@@ -4,6 +4,8 @@ import cv2
 
 import numpy as np
 import time
+import requests
+from bs4 import BeautifulSoup
 
 import speech_recognition_mod as sr
 
@@ -34,5 +36,9 @@ while True:
             # Update the scanned QR codes list with the current time
             scanned_qr_codes[myData] = time.time()
 
-    cv2.imshow('Result',img)
-    cv2.waitKey(1)
+            # Check if the data is a URL
+            if myData.startswith('http'):
+                response = requests.get(myData)
+                soup = BeautifulSoup(response.text, 'html.parser')
+                text = soup.get_text()
+                sr.speak(text)
