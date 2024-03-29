@@ -7,7 +7,6 @@ import threading
 import logging
 from picamera import PiCamera
 
-
 logging.basicConfig(filename='debug.log', encoding='utf-8', level=logging.DEBUG)
 
 sr.loop_flag = True
@@ -47,14 +46,17 @@ output_layers = get_output_layers(net)
 np.random.seed(42)
 COLORS = np.random.uniform(0, 255, size=(len(classes), 3))
 
-# Open webcam
-cap = cv2.VideoCapture(0)
+# Open picamera
+camera = PiCamera()
+camera.resolution = (640, 480)
+camera.framerate = 30
+
 def object_detection_mode():
     global w, h, frame, ret, channels
     logging.info(sr.loop_flag)
     while sr.loop_flag:
-        # Read a frame from the webcam
-        ret, frame = cap.read()
+        # Capture a frame from the camera
+        ret, frame = camera.capture()
 
         # Get the frame dimensions
         height, width, channels = frame.shape
@@ -101,7 +103,7 @@ def object_detection_mode():
         cv2.imshow("VisionEase Wear by Teymur and Sanam SABIS(R) STARS 2024", frame)
         # process_frame_with_ocr(frame)
         # Break the loop when 'q' key is pressed
-        if  cv2.waitKey(1) == ord('q'):
+        if cv2.waitKey(1) == ord('q'):
             sr.loop_flag = False
 
 # Create 3 threads
@@ -118,10 +120,10 @@ def object_detection_mode():
 # thread_2.join()
 # time.sleep(0.25)
 # thread_3.join()
-# # Release the webcam and close the window
+
 
 if __name__ == "__main__":
     object_detection_mode()
     sr.listen()
-    cap.release()
+    camera.close()
     cv2.destroyAllWindows()
