@@ -5,6 +5,7 @@ import qr_detection as qr
 import text_detection
 import threading
 import logging
+from picamera import PiCamera
 
 
 logging.basicConfig(filename='debug.log', encoding='utf-8', level=logging.DEBUG)
@@ -15,9 +16,7 @@ def get_output_layers(net):
     layer_names = net.getUnconnectedOutLayersNames()
     return [layer_names[i[0] - 1] for i in enumerate(net.getLayerNames()) if i[0] - 1 in layer_names]
 
-
 announced_objects = {}
-
 
 # Modify the draw_prediction function
 def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
@@ -49,14 +48,14 @@ np.random.seed(42)
 COLORS = np.random.uniform(0, 255, size=(len(classes), 3))
 
 # Open webcam
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 def object_detection_mode():
-    global w,h,frame,ret,channels
+    global w, h, frame, ret, channels
     logging.info(sr.loop_flag)
     while sr.loop_flag:
         # Read a frame from the webcam
         ret, frame = cap.read()
-        
+
         # Get the frame dimensions
         height, width, channels = frame.shape
 
@@ -89,8 +88,6 @@ def object_detection_mode():
                     confidences.append(float(confidence))
                     boxes.append([x, y, w, h])
 
-
-
         # Apply non-max suppression to avoid duplicate detections
         indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.4)
 
@@ -107,7 +104,7 @@ def object_detection_mode():
         if  cv2.waitKey(1) == ord('q'):
             sr.loop_flag = False
 
-# # Create 3 threads
+# Create 3 threads
 # thread_1 = threading.Thread(target=object_detection_mode)
 # thread_2 = threading.Thread(target=sr.listen)
 # thread_3 = threading.Thread(target=process_frame_with_ocr)
@@ -116,7 +113,7 @@ def object_detection_mode():
 # thread_2.start()
 # time.sleep(0.25)
 # thread_3.start()
-# # Wait for all threads to finish 
+# # Wait for all threads to finish
 # thread_1.join()
 # thread_2.join()
 # time.sleep(0.25)

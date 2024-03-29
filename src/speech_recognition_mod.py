@@ -5,14 +5,14 @@ import pyttsx3
 import requests
 
 # Text to speech
-text_speech = pyttsx3.init()
-text_speech.setProperty("rate",180)
+engine = pyttsx3.init()
+engine.setProperty("rate",180)
 
-
+engine.startLoop(False)
 def speak(answer):
-    text_speech.say(answer)
+    engine.say(answer)
     try:
-        text_speech.runAndWait()
+        engine.runAndWait()
     except Exception as e:
         print(f"Error in speak function: {e}")
 

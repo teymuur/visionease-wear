@@ -9,6 +9,10 @@ from bs4 import BeautifulSoup
 
 import speech_recognition_mod as sr
 
+from picamera import PiCamera
+
+camera = PiCamera()
+
 cap = cv2.VideoCapture(1)
 cap.set(3,640)
 cap.set(4,480)
@@ -17,7 +21,9 @@ cap.set(4,480)
 scanned_qr_codes = {}
 
 while True:
-
+    raw_capture = camera.capture_raw(format="bgr")
+    image_data = PiCamera.read_raw(raw_capture, format="bgr")
+    image = cv2.imdecode(image_data, cv2.IMREAD_COLOR)
     success, img = cap.read()
     for barcode in decode(img):
         myData = barcode.data.decode('utf-8')
