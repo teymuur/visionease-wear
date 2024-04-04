@@ -19,6 +19,12 @@ cap.set(4,480)
 
 
 scanned_qr_codes = {}
+def read_website(url):
+    if url.startswith('http'):
+            response = requests.get(myData)
+            soup = BeautifulSoup(response.text, 'html.parser')
+            text = soup.get_text()
+            sr.speak(text)
 
 while True:
     raw_capture = camera.capture_raw(format="bgr")
@@ -44,7 +50,5 @@ while True:
 
             # Check if the data is a URL
             if myData.startswith('http'):
-                response = requests.get(myData)
-                soup = BeautifulSoup(response.text, 'html.parser')
-                text = soup.get_text()
-                sr.speak(text)
+                read_website(myData)
+
