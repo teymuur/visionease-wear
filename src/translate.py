@@ -4,21 +4,20 @@ import os
 from playsound import playsound
 from googletrans import Translator
 
-
 def translate(text, target_language='tr'):
     translator = Translator()
     translation = translator.translate(text, dest=target_language)
     return translation.text
 
-def speak(text, language='en'):
+def speak(text, language='tr'):
     tts = gTTS(text=text, lang=language, slow=False)
-    tts.save("output.mp3")
-    playsound("output.mp3")
-    os.remove("output.mp3")
+    tts.save("src/output.mp3")
+    playsound("output.mp3")  # Added "./" to specify the full path to the file
+    os.remove("src/output.mp3")
 
 if __name__ == "__main__":
     while True:
-            original_text = sr.__listen__()
-            translated_text = translate(original_text)
-            print("Translated:", translated_text)
-            speak(translated_text)
+        original_text = sr.__listen__()
+        translated_text = translate(original_text)
+        print("Translated:", translated_text)
+        speak(translated_text)
