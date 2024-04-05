@@ -5,7 +5,7 @@ from playsound import playsound
 from googletrans import Translator
 
 
-def translate(text, target_language='en'):
+def translate(text, target_language='tr'):
     translator = Translator()
     translation = translator.translate(text, dest=target_language)
     return translation.text
