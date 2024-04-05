@@ -12,10 +12,11 @@ def translate(text, target_language='tr'):
 def speak(text, language='tr'):
     tts = gTTS(text=text, lang=language, slow=False)
     tts.save("src/output.mp3")
-    playsound("output.mp3")  # Added "./" to specify the full path to the file
+    playsound("./src/output.mp3")  # Added "./" to specify the full path to the file
     os.remove("src/output.mp3")
 
 if __name__ == "__main__":
+    playsound("src/output.mp3")
     while True:
         original_text = sr.__listen__()
         translated_text = translate(original_text)
