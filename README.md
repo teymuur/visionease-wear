@@ -19,6 +19,9 @@ Certainly! Below is the documentation for the provided Python script that utiliz
 - pyttsx3
 - Tesseract
 - Pyzbar
+- PyGame
+- Spotipy
+
 
 ## Installation
 
@@ -54,6 +57,11 @@ More info about installation [tessdoc](https://tesseract-ocr.github.io/tessdoc/I
 6. **Install pyzbar**
    ```bash
    pip install pyzbar
+   ```
+7. **Install Spotipy**
+      ```bash
+   pip install spotipy
+   pip install pygame
    ```
 ## Setup
 
