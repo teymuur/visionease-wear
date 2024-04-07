@@ -1,7 +1,7 @@
 ##Text detection module
 import pytesseract
 import cv2
-import picamera
+import picamera2
 import speech_recognition_mod as sr
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
@@ -21,7 +21,7 @@ def process_frame(frame):
 
 def main():
     # Initialize the camera
-    with picamera.PiCamera() as camera:
+    with picamera2.PiCamera2() as camera:
         camera.resolution = (640, 480)
 
         while True:

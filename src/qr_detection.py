@@ -9,9 +9,9 @@ from bs4 import BeautifulSoup
 
 import speech_recognition_mod as sr
 
-from picamera import PiCamera
+from picamera2 import PiCamera2
 
-camera = PiCamera()
+camera = PiCamera2()
 
 cap = cv2.VideoCapture(1)
 cap.set(3,640)
@@ -28,7 +28,7 @@ def read_website(url):
 
 while True:
     raw_capture = camera.capture_raw(format="bgr")
-    image_data = PiCamera.read_raw(raw_capture, format="bgr")
+    image_data = PiCamera2.read_raw(raw_capture, format="bgr")
     image = cv2.imdecode(image_data, cv2.IMREAD_COLOR)
     success, img = cap.read()
     for barcode in decode(img):

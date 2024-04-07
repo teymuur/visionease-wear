@@ -5,7 +5,7 @@ import qr_detection as qr
 import text_detection
 import threading
 import logging
-from picamera import PiCamera
+from picamera2 import PiCamera2
 
 logging.basicConfig(filename='debug.log', encoding='utf-8', level=logging.DEBUG)
 
@@ -47,7 +47,7 @@ np.random.seed(42)
 COLORS = np.random.uniform(0, 255, size=(len(classes), 3))
 
 # Open picamera
-camera = PiCamera()
+camera = PiCamera2()
 camera.resolution = (640, 480)
 camera.framerate = 30
 
