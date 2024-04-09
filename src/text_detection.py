@@ -21,7 +21,7 @@ def process_frame(frame):
 
 def main():
     # Initialize the camera
-    with picamera2.PiCamera2() as camera:
+    with picamera2.Picamera2() as camera:
         camera.resolution = (640, 480)
 
         while True:
