@@ -1,17 +1,16 @@
+##Text detection module
 import pytesseract
 import cv2
 import picamera2
-
-from picamera2.picamera2 import PreviewRequest, CaptureRequest
+import speech_recognition_mod as sr
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 previous_text = set()
 
-
-def process_image(image):
-    # Convert the image to grayscale for better OCR accuracy
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+def process_frame(frame):
+    # Convert the frame to grayscale for better OCR accuracy
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     # Apply thresholding to enhance text visibility
     _, thresholded = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
@@ -20,35 +19,36 @@ def process_image(image):
     text = pytesseract.image_to_string(thresholded, config='--psm 6')
     return text
 
-
 def main():
-    # Initialize the camera with a preview stream
-    camera = picamera2.Picamera2()
-    camera.configure(PreviewRequest(640, 480))  # Set resolution
+    # Initialize the camera
+    with picamera2.PiCamera2() as camera:
+        camera.resolution = (640, 480)
 
-    # Create a capture callback to process incoming frames
-    def capture_callback(image):
-        text = process_image(image.planes[0].array)  # Access image data directly
+        while True:
+            # Capture a frame from the camera
+            frame = camera.capture('frame.jpg')
 
-        # Display the original frame (can be removed for efficiency)
-        cv2.imshow('Original Frame', image.planes[0].array)
+            if not frame:
+                print("Failed to capture frame. Exiting...")
+                break
 
-        if text.strip() not in previous_text:
-            # Text-to-speech using your preferred library (replace with sr.speak())
-            print(f"Reading text: {text}")
-            previous_text.add(text.strip())
+            # Process the frame to extract text
+            text = process_frame(frame)
 
-    camera.start_preview(capture_callback=capture_callback)
+            # Display the original frame and the extracted text
+            cv2.imshow('Original Frame', cv2.imread('frame.jpg'))
+            if text.strip() not in previous_text:
+                # Print the extracted text
+                sr.speak(f"Reading text: {text}")
+                # Add the detected text to the set of previous text
+                previous_text.add(text.strip())
 
-    # Wait for user input to quit
-    while True:
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+            # Break the loop if 'q' is pressed
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
-    # Clean up resources
-    camera.stop_preview()
+    # Release the camera and close all OpenCV windows
     cv2.destroyAllWindows()
-
 
 if __name__ == "__main__":
     main()
