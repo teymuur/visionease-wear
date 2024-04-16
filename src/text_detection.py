@@ -20,7 +20,7 @@ def process_frame(frame):
 
 def main():
     # Open a connection to the camera (0 represents the default camera)
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(0)
 
     while True:
         # Read a frame from the camera

@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 
 import speech_recognition_mod as sr
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 cap.set(3,640)
 cap.set(4,480)
 

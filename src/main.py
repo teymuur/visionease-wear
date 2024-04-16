@@ -49,7 +49,7 @@ np.random.seed(42)
 COLORS = np.random.uniform(0, 255, size=(len(classes), 3))
 
 # Open webcam
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 def object_detection_mode():
     global w,h,frame,ret,channels
     logging.info(sr.loop_flag)
