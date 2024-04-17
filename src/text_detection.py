@@ -4,6 +4,7 @@ import cv2
 
 import speech_recognition_mod as sr
 
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 previous_text = set()
 
@@ -20,7 +21,7 @@ def process_frame(frame):
 
 def main():
     # Open a connection to the camera (0 represents the default camera)
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
 
     while True:
         # Read a frame from the camera

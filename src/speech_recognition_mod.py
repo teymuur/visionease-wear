@@ -1,14 +1,14 @@
 ##Speech recognition model
 import speech_recognition as sr
 import pyttsx3
-
+import qr_detection as qr
 import requests
 
 # Text to speech
 engine = pyttsx3.init()
 engine.setProperty("rate",180)
 
-engine.startLoop(False)
+
 def speak(answer):
     engine.say(answer)
     try:
@@ -37,10 +37,10 @@ def __listen__():
             recognizer = sr.Recognizer()
             continue
 def getweather():
-    api_key = open('weather_api_key.txt', 'r').read()
+    api_key = open('src/weather_api_key.txt', 'r').read()
     while loop_flag:
-        
-        location = "Baku"
+        print("ok")
+        location = "Muscat"
 
         result = requests.get(f'http://api.openweathermap.org/data/2.5/weather?q={location}&units=metric&appid={api_key}')
         if result.json()['cod'] == '404':
@@ -64,7 +64,7 @@ def listen():
             speak("I aint gonna shut up. Just Kidding, Bye")
             loop_flag = False
             break
-        elif "zenith"in t :
+        elif "vision" in t :
             if "w men's" in t:
                 speak("Hell yeah brother")
                 continue
@@ -73,8 +73,10 @@ def listen():
                 continue
             elif "help" in t:
                 speak("There a multiple stuff i can help you with please be more specific")
-            elif "direct me" in t:
-                # soon to be added
+            elif "open website" in t:
+                url_start_index = text.find("open website") + len("open website")
+                website_url = text[url_start_index:].strip()
+                qr.read_website(website_url)
                 continue
             elif "i love you" in t:
                 speak("i love you too bro")
@@ -88,6 +90,10 @@ def listen():
     Take care,''') 
             elif "thank you T" in t:
                 speak("No problem")
+            
+            else:
+                speak("Sorry I didnt get that")
 
 if __name__ == "__main__":
+    speak("hello world")
     print(listen())
