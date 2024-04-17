@@ -39,7 +39,7 @@ def main():
         if text.strip() not in previous_text:
         # Print the extracted text
     
-            sr.speak(f"Reading text:{text}")
+            sr.speak(f"{text}")
         # Add the detected text to the set of previous text
             previous_text.add(text.strip())
 
