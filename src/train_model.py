@@ -10,13 +10,15 @@ names = []
 path = []
 
 # Get the names of all the users
-for users in os.listdir("dataset"):
+for users in os.listdir("src/dataset"):
     names.append(users)
 
 # Get the path to all the images
 for name in names:
-    for image in os.listdir("dataset/{}".format(name)):
-        path_string = os.path.join("dataset/{}".format(name), image)
+    for image in os.listdir("src/dataset/{}".format(name)):
+        
+        path_string = os.path.join("src/dataset/{}".format(name), image)
+        print(path_string)
         path.append(path_string)
 
 
@@ -29,7 +31,7 @@ for img_path in path:
 
     imgNp = np.array(image, "uint8")
 
-    id = int(img_path.split("/")[2].split("_")[0])
+    id = int(img_path.split("/")[-1].split("\\")[1].split("_")[0])
 
     faces.append(imgNp)
     ids.append(id)

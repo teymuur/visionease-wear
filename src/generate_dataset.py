@@ -7,7 +7,7 @@ from pathlib import Path
 faceCascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 
 # Start the video camera
-vc = cv2.VideoCapture(0)
+vc = cv2.VideoCapture(1)
 
 # Get the userId and userName
 print("Enter the id and name of the person: ")

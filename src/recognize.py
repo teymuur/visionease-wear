@@ -1,6 +1,6 @@
 import cv2
 import os
-
+import speech_recognition_mod as sr
 faceCascade = cv2.CascadeClassifier("src/model/haarcascade_frontalface_default.xml")
 # video_capture = cv2.VideoCapture(0)
 
@@ -42,6 +42,7 @@ while True:
                 1,
                 cv2.LINE_AA,
             )
+            sr.speak(names[id-1])
         else:
             cv2.putText(
                 img,

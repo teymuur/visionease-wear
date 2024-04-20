@@ -3,11 +3,21 @@ import speech_recognition as sr
 import pyttsx3
 import qr_detection as qr
 import requests
-
+import time
 # Text to speech
 engine = pyttsx3.init()
 engine.setProperty("rate",180)
 
+sample = '''Artificial intelligence (AI) stands at the forefront of innovation in today's rapidly advancing technological landscape. With its ability to analyze vast amounts of data and make intelligent decisions, AI has revolutionized numerous industries, from healthcare to finance, manufacturing to transportation. This sample text serves to illustrate the transformative power of AI and technology.
+
+AI algorithms are continuously evolving, becoming more adept at understanding complex patterns and making predictions with remarkable accuracy. Whether it's optimizing supply chains, personalizing user experiences, or detecting fraudulent activities, AI-powered solutions are reshaping the way businesses operate. Moreover, AI-driven automation is streamlining processes, reducing costs, and increasing efficiency across various sectors.
+
+Furthermore, the integration of AI into everyday devices is making our lives more convenient and interconnected. From smart assistants that anticipate our needs to autonomous vehicles that navigate the streets safely, AI is enabling a future where technology seamlessly enhances human capabilities.
+
+As AI continues to advance, it's crucial to consider the ethical implications and ensure that its development remains aligned with societal values. From data privacy concerns to potential job displacement, addressing these challenges is essential to harnessing the full potential of AI for the benefit of humanity.
+
+This sample text serves as a glimpse into the transformative power of AI and technology, illustrating its potential to reshape industries and improve lives. As we navigate this technological revolution, embracing innovation while prioritizing ethical considerations will be key to unlocking a future where AI enhances our world in meaningful ways.
+'''
 
 def speak(answer):
     engine.say(answer)
@@ -71,6 +81,9 @@ def listen():
             elif "weather" in t: 
                 getweather()
                 continue
+            elif "text" in t:
+                time.wait(4)
+                speak(sample)
             elif "help" in t:
                 speak("There a multiple stuff i can help you with please be more specific")
             elif "open website" in t:
@@ -80,8 +93,8 @@ def listen():
                 continue
             elif "i love you" in t:
                 speak("i love you too bro")
-            elif "fuck you" in t:
-                speak("Fuck you too T. you wanna start a robot fight huh?")
+            # elif "fuck you" in t:
+            #     speak("Fuck you too T. you wanna start a robot fight huh?")
             elif "kill myself" in t:
                 speak('''Hey Bro,
 
@@ -95,5 +108,6 @@ def listen():
                 speak("Sorry I didnt get that")
 
 if __name__ == "__main__":
-    speak("hello world")
+    # speak("hello world")
+    
     print(listen())
