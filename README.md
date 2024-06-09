@@ -1,4 +1,4 @@
-# VisionEase Wear
+# VisionEase Wear- public name SoundSight
 Technology for a better future
 ## What is this
 VisionEase Wear is the concept of pair of glasses that detects obstacles around and assists visually impaired people with audio feedback. This will ease their life and will not only be informed about obstacles but also help them quickly recognize documents and qr codes by directly reading the text or the content of the qr code, for example, a qr menu. People who has access to this device wont need to learn complicated reading and writing systems like Braille. 
